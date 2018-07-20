@@ -30,7 +30,7 @@ export function buildManageButtons(attrs, currentUser, siteSettings) {
   if (!attrs.isWhisper && currentUser.staff) {
     const buttonAtts = {
       action: "togglePostType",
-      icon: "shield",
+      icon: "shield-alt",
       className: "toggle-post-type"
     };
 
@@ -94,14 +94,14 @@ export function buildManageButtons(attrs, currentUser, siteSettings) {
       contents.push({
         action: "toggleWiki",
         label: "post.controls.unwiki",
-        icon: "pencil-square-o",
+        icon: "edit",
         className: "wiki wikied"
       });
     } else {
       contents.push({
         action: "toggleWiki",
         label: "post.controls.wiki",
-        icon: "pencil-square-o",
+        icon: "edit",
         className: "wiki"
       });
     }

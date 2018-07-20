@@ -21,7 +21,7 @@ function addBulkButton(action, key, opts) {
 }
 
 // Default buttons
-addBulkButton("showChangeCategory", "change_category", { icon: "pencil" });
+addBulkButton("showChangeCategory", "change_category", { icon: "pencil-alt" });
 addBulkButton("closeTopics", "close_topics", { icon: "lock" });
 addBulkButton("archiveTopics", "archive_topics", { icon: "folder" });
 addBulkButton("showNotificationLevel", "notification_level", {

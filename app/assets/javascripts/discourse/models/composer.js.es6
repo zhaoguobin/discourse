@@ -59,7 +59,7 @@ const SAVE_LABELS = {
 };
 
 const SAVE_ICONS = {
-  [EDIT]: "pencil",
+  [EDIT]: "pencil-alt",
   [EDIT_SHARED_DRAFT]: "clipboard",
   [REPLY]: "reply",
   [CREATE_TOPIC]: "plus",

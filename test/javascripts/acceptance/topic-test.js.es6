@@ -33,7 +33,7 @@ QUnit.test("Share Popup", assert => {
 QUnit.test("Showing and hiding the edit controls", assert => {
   visit("/t/internationalization-localization/280");
 
-  click("#topic-title .d-icon-pencil");
+  click("#topic-title .d-icon-pencil-alt");
 
   andThen(() => {
     assert.ok(exists("#edit-title"), "it shows the editing controls");
@@ -55,7 +55,7 @@ QUnit.test("Updating the topic title and category", assert => {
 
   visit("/t/internationalization-localization/280");
 
-  click("#topic-title .d-icon-pencil");
+  click("#topic-title .d-icon-pencil-alt");
   fillIn("#edit-title", "this is the new title");
   categoryChooser.expand().selectRowByValue(4);
   click("#topic-title .submit-edit");
@@ -192,7 +192,7 @@ QUnit.test("Visit topic routes", assert => {
 
 QUnit.test("Updating the topic title with emojis", assert => {
   visit("/t/internationalization-localization/280");
-  click("#topic-title .d-icon-pencil");
+  click("#topic-title .d-icon-pencil-alt");
 
   fillIn("#edit-title", "emojis title :bike: :blonde_woman:t6:");
 

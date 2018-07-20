@@ -144,7 +144,7 @@ export const TIMEFRAMES = [
   buildTimeframe({
     id: "set_based_on_last_post",
     enabled: opts => opts.includeBasedOnLastPost,
-    icon: "clock-o"
+    icon: "clock"
   })
 ];
 

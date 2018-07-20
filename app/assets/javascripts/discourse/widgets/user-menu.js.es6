@@ -89,7 +89,7 @@ createWidget("user-menu-links", {
     glyphs.push({
       label: "user.preferences",
       className: "user-preferences-link",
-      icon: "gear",
+      icon: "cog",
       href: `${path}/preferences/account`
     });
 

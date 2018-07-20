@@ -160,7 +160,7 @@ export default class PostCooked {
         .catch(e => {
           if (e.jqXHR.status === 404) {
             $blockQuote.showHtml(
-              $(`<div class='expanded-quote'>${iconHTML("trash-o")}</div>`),
+              $(`<div class='expanded-quote'>${iconHTML("trash-alt")}</div>`),
               "fast",
               finished
             );

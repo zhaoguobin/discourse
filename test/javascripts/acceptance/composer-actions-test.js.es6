@@ -102,7 +102,7 @@ QUnit.test("replying to post - reply_as_new_topic", async assert => {
 
   await visit("/t/internationalization-localization/280");
 
-  await click("#topic-title .d-icon-pencil");
+  await click("#topic-title .d-icon-pencil-alt");
   await categoryChooser.expandAwait();
   await categoryChooser.selectRowByValueAwait(4);
   await click("#topic-title .submit-edit");

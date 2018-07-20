@@ -816,7 +816,7 @@ componentTest("emoji", {
         toolbar.addButton({
           id: "emoji",
           group: "extras",
-          icon: "smile-o",
+          icon: "smile",
           action: "emoji"
         });
       });

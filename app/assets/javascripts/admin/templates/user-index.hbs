@@ -32,7 +32,7 @@
         {{d-button action="saveUsername" label="admin.user_fields.save"}}
         <a href {{action "toggleUsernameEdit"}}>{{i18n 'cancel'}}</a>
       {{else}}
-        {{d-button action="toggleUsernameEdit" icon="pencil"}}
+        {{d-button action="toggleUsernameEdit" icon="pencil-alt"}}
       {{/if}}
     </div>
   </div>
@@ -51,7 +51,7 @@
         {{d-button action="saveName" label="admin.user_fields.save"}}
         <a href {{action "toggleNameEdit"}}>{{i18n 'cancel'}}</a>
       {{else}}
-        {{d-button action="toggleNameEdit" icon="pencil"}}
+        {{d-button action="toggleNameEdit" icon="pencil-alt"}}
       {{/if}}
     </div>
   </div>
@@ -68,7 +68,7 @@
         {{#if model.email}}
           <a href="mailto:{{unbound model.email}}">{{model.email}}</a>
         {{else}}
-          {{d-button action="checkEmail" actionParam=model icon="envelope-o" label="admin.users.check_email.text" title="admin.users.check_email.title"}}
+          {{d-button action="checkEmail" actionParam=model icon="envelope" label="admin.users.check_email.text" title="admin.users.check_email.title"}}
         {{/if}}
       </div>
     </div>
@@ -90,7 +90,7 @@
         {{else}}
           {{d-button action="checkEmail"
               actionParam=model
-              icon="envelope-o"
+              icon="envelope"
               label="admin.users.check_email.text"
               title="admin.users.check_email.title"}}
         {{/if}}
@@ -114,7 +114,7 @@
         {{#if model.associated_accounts}}
           {{model.associated_accounts}}
         {{else}}
-          {{d-button action="checkEmail" actionParam=model icon="envelope-o" label="admin.users.check_email.text" title="admin.users.check_email.title"}}
+          {{d-button action="checkEmail" actionParam=model icon="envelope" label="admin.users.check_email.text" title="admin.users.check_email.title"}}
         {{/if}}
       </div>
     </div>
@@ -142,7 +142,7 @@
         {{d-button action="saveTitle" label="admin.user_fields.save"}}
         <a href {{action "toggleTitleEdit"}}>{{i18n 'cancel'}}</a>
       {{else}}
-        {{d-button action="toggleTitleEdit" icon="pencil"}}
+        {{d-button action="toggleTitleEdit" icon="pencil-alt"}}
       {{/if}}
     </div>
   </div>
@@ -294,10 +294,10 @@
     <div class='value'>{{i18n-yes-no model.admin}}</div>
     <div class='controls'>
       {{#if model.can_revoke_admin}}
-        {{d-button action="revokeAdmin" icon="shield" label="admin.user.revoke_admin"}}
+        {{d-button action="revokeAdmin" icon="shield-alt" label="admin.user.revoke_admin"}}
       {{/if}}
       {{#if model.can_grant_admin}}
-        {{d-button action="grantAdmin" icon="shield" label="admin.user.grant_admin"}}
+        {{d-button action="grantAdmin" icon="shield-alt" label="admin.user.grant_admin"}}
       {{/if}}
     </div>
   </div>
@@ -307,10 +307,10 @@
     <div class='value'>{{i18n-yes-no model.moderator}}</div>
     <div class='controls'>
       {{#if model.can_revoke_moderation}}
-        {{d-button action="revokeModeration" icon="shield" label="admin.user.revoke_moderation"}}
+        {{d-button action="revokeModeration" icon="shield-alt" label="admin.user.revoke_moderation"}}
       {{/if}}
       {{#if model.can_grant_moderation}}
-        {{d-button action="grantModeration" icon="shield" label="admin.user.grant_moderation"}}
+        {{d-button action="grantModeration" icon="shield-alt" label="admin.user.grant_moderation"}}
       {{/if}}
     </div>
   </div>
@@ -504,7 +504,7 @@
     <div class='controls'>
       {{#if model.can_delete_all_posts}}
         {{#if model.post_count}}
-          {{d-button class="btn-danger" action="deleteAllPosts" icon="trash-o" label="admin.user.delete_all_posts"}}
+          {{d-button class="btn-danger" action="deleteAllPosts" icon="trash-alt" label="admin.user.delete_all_posts"}}
         {{/if}}
       {{else}}
         {{deleteAllPostsExplanation}}

@@ -30,7 +30,7 @@
           <div class="version-status">
             <div class="face">
               {{#if versionCheck.version_check_pending}}
-                <span class='icon up-to-date'>{{d-icon "smile-o"}}</span>
+                <span class='icon up-to-date'>{{d-icon "smile"}}</span>
               {{else}}
                 <span class="icon critical-updates-available">{{d-icon "frown-o"}}</span>
               {{/if}}
@@ -53,7 +53,7 @@
           <div class="version-status">
             <div class="face">
               {{#if versionCheck.upToDate }}
-              <span class='icon up-to-date'>{{d-icon "smile-o"}}</span>
+              <span class='icon up-to-date'>{{d-icon "smile"}}</span>
               {{else}}
                 <span class="icon {{if versionCheck.critical_updates 'critical-updates-available' 'updates-available'}}">
                   {{#if versionCheck.behindByOneVersion}}

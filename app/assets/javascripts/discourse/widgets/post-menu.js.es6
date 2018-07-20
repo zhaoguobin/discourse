@@ -120,7 +120,7 @@ registerButton("edit", attrs => {
       action: "editPost",
       className: "edit",
       title: "post.controls.edit",
-      icon: "pencil",
+      icon: "pencil-alt",
       alwaysShowYours: true
     };
   }
@@ -147,7 +147,7 @@ registerButton("wiki-edit", attrs => {
       action: "editPost",
       className: "edit create",
       title: "post.controls.edit",
-      icon: "pencil-square-o",
+      icon: "edit",
       alwaysShowYours: true
     };
     if (!attrs.mobileView) {
@@ -263,7 +263,7 @@ registerButton("delete", attrs => {
       id: "delete_topic",
       action: "deletePost",
       title: "topic.actions.delete",
-      icon: "trash-o",
+      icon: "trash-alt",
       className: "delete"
     };
   } else if (attrs.canRecover) {
@@ -279,7 +279,7 @@ registerButton("delete", attrs => {
       id: "delete",
       action: "deletePost",
       title: "post.controls.delete",
-      icon: "trash-o",
+      icon: "trash-alt",
       className: "delete"
     };
   } else if (!attrs.canDelete && attrs.firstPost && attrs.yours) {
@@ -287,7 +287,7 @@ registerButton("delete", attrs => {
       id: "delete_topic",
       action: "showDeleteTopicModal",
       title: "post.controls.delete_topic_disallowed",
-      icon: "trash-o",
+      icon: "trash-alt",
       className: "delete"
     };
   }

@@ -130,11 +130,11 @@
         </h3>
         {{#if showCheckEmail}}
           <h3 class="email">
-            {{d-icon "envelope-o" title="user.email.title"}}
+            {{d-icon "envelope" title="user.email.title"}}
             {{#if user.email}}
               {{user.email}}
             {{else}}
-              {{d-button action="checkEmail" actionParam=user icon="envelope-o" label="admin.users.check_email.text" class="btn-primary"}}
+              {{d-button action="checkEmail" actionParam=user icon="envelope" label="admin.users.check_email.text" class="btn-primary"}}
             {{/if}}
           </h3>
         {{/if}}

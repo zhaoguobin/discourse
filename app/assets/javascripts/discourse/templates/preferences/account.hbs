@@ -4,7 +4,7 @@
     <span class='static'>{{model.username}}</span>
     {{#if model.can_edit_username}}
       {{#link-to "preferences.username" class="btn btn-small btn-icon pad-left no-text"}}
-      {{d-icon "pencil"}} {{/link-to}}
+      {{d-icon "pencil-alt"}} {{/link-to}}
     {{/if}}
   </div>
   {{#if siteSettings.enable_mentions}}
@@ -37,7 +37,7 @@
       <div class="controls">
         <span class='static'>{{model.email}}</span>
         {{#if model.can_edit_email}}
-          {{#link-to "preferences.email" class="btn btn-small btn-icon pad-left no-text"}}{{d-icon "pencil"}}{{/link-to}}
+          {{#link-to "preferences.email" class="btn btn-small btn-icon pad-left no-text"}}{{d-icon "pencil-alt"}}{{/link-to}}
         {{/if}}
       </div>
       <div class='instructions'>
@@ -45,7 +45,7 @@
       </div>
     {{else}}
       <div class="controls">
-        {{d-button action="checkEmail" actionParam=model title="admin.users.check_email.title" icon="envelope-o" label="admin.users.check_email.text"}}
+        {{d-button action="checkEmail" actionParam=model title="admin.users.check_email.title" icon="envelope" label="admin.users.check_email.text"}}
       </div>
     {{/if}}
   </div>
@@ -76,7 +76,7 @@
 
     {{#if isCurrentUser}}
       {{#link-to "preferences.second-factor" class="btn btn-small btn-icon pad-left no-text"}}
-        {{d-icon "pencil"}}
+        {{d-icon "pencil-alt"}}
       {{/link-to}}
     {{/if}}
   </div>
@@ -91,7 +91,7 @@
 
       {{#if isCurrentUser}}
         {{#link-to "preferences.second-factor-backup" class="btn btn-small btn-icon pad-left no-text"}}
-          {{d-icon "pencil"}}
+          {{d-icon "pencil-alt"}}
         {{/link-to}}
       {{/if}}
     {{/if}}
@@ -105,7 +105,7 @@
     {{! we want the "huge" version even though we're downsizing it to "large" in CSS }}
     {{bound-avatar model "huge"}}
     {{#unless siteSettings.sso_overrides_avatar}}
-      {{d-button action="showAvatarSelector" class="pad-left" icon="pencil"}}
+      {{d-button action="showAvatarSelector" class="pad-left" icon="pencil-alt"}}
     {{/unless}}
   </div>
 </div>
@@ -141,7 +141,7 @@
   <div class="control-group delete-account">
     <br/>
     <div class="controls">
-      {{d-button action="delete" disabled=deleteDisabled class="btn-danger" icon="trash-o" label="user.delete_account"}}
+      {{d-button action="delete" disabled=deleteDisabled class="btn-danger" icon="trash-alt" label="user.delete_account"}}
     </div>
   </div>
 {{/if}}

@@ -145,7 +145,7 @@ export default createWidget("topic-admin-menu", {
         className: "topic-admin-delete",
         buttonClass: "btn-danger",
         action: "deleteTopic",
-        icon: "trash-o",
+        icon: "trash-alt",
         label: "actions.delete"
       });
     }
@@ -178,7 +178,7 @@ export default createWidget("topic-admin-menu", {
     buttons.push({
       className: "topic-admin-status-update",
       action: "showTopicStatusUpdate",
-      icon: "clock-o",
+      icon: "clock",
       label: "actions.timed_update"
     });
 
@@ -189,7 +189,7 @@ export default createWidget("topic-admin-menu", {
       buttons.push({
         className: "topic-admin-pin",
         action: "showFeatureTopic",
-        icon: "thumb-tack",
+        icon: "thumbtack",
         label: featured ? "actions.unpin" : "actions.pin"
       });
     }

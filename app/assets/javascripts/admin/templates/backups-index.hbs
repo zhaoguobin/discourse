@@ -26,10 +26,10 @@
                      title="admin.backups.operations.download.title"
                      label="admin.backups.operations.download.label"}}
           {{#if status.isOperationRunning}}
-            {{d-button icon="trash-o" action="destroyBackup" actionParam=backup class="btn-danger" disabled="true" title="admin.backups.operations.is_running"}}
+            {{d-button icon="trash-alt" action="destroyBackup" actionParam=backup class="btn-danger" disabled="true" title="admin.backups.operations.is_running"}}
             {{d-button icon="play" action="startRestore" actionParam=backup disabled=status.restoreDisabled title=restoreTitle label="admin.backups.operations.restore.label"}}
           {{else}}
-            {{d-button icon="trash-o" action="destroyBackup" actionParam=backup class="btn-danger" title="admin.backups.operations.destroy.title"}}
+            {{d-button icon="trash-alt" action="destroyBackup" actionParam=backup class="btn-danger" title="admin.backups.operations.destroy.title"}}
             {{d-button icon="play" action="startRestore" actionParam=backup disabled=status.restoreDisabled title=restoreTitle label="admin.backups.operations.restore.label"}}
           {{/if}}
         </div>
