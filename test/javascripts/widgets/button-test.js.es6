@@ -14,10 +14,7 @@ widgetTest("icon only button", {
       this.$("button.btn.btn-icon.no-text").length,
       "it has all the classes"
     );
-    assert.ok(
-      this.$("button .d-icon.d-icon-smile").length,
-      "it has the icon"
-    );
+    assert.ok(this.$("button .d-icon.d-icon-smile").length, "it has the icon");
   }
 });
 
