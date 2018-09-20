@@ -1,6 +1,8 @@
 require 'flag_query'
 
-class Admin::ReviewsController < Admin::AdminController
+class ReviewsController < ApplicationController
+
+  before_action :ensure_staff
 
   PAGE_SIZE = 10
 

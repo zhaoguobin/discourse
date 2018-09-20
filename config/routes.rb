@@ -290,8 +290,6 @@ Discourse::Application.routes.draw do
         post "preview" => "badges#preview"
       end
     end
-
-    get "reviews" => "reviews#index"
   end # admin namespace
 
   get "email_preferences" => "email#preferences_redirect", :as => "email_preferences_redirect"
@@ -715,6 +713,9 @@ Discourse::Application.routes.draw do
 
   resources :queued_posts, constraints: StaffConstraint.new
   get 'queued-posts' => 'queued_posts#index'
+
+  resources :reviews, only: [:index], constraints: StaffConstraint.new
+  get "reviews" => "reviews#index"
 
   resources :invites
   post "invites/upload_csv" => "invites#upload_csv"
