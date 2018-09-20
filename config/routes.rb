@@ -290,6 +290,8 @@ Discourse::Application.routes.draw do
         post "preview" => "badges#preview"
       end
     end
+
+    get "reviews" => "reviews#index"
   end # admin namespace
 
   get "email_preferences" => "email#preferences_redirect", :as => "email_preferences_redirect"
