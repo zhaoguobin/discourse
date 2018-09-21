@@ -15,6 +15,12 @@ describe UserOption do
     end
   end
 
+  describe "enhanced_privacy" do
+    it "should be false by default" do
+      expect(Fabricate(:user).user_option.enhanced_privacy).to eq(false)
+    end
+  end
+
   describe "should_be_redirected_to_top" do
     let!(:user) { Fabricate(:user) }
 
