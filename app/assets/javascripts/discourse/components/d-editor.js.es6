@@ -410,10 +410,17 @@ export default Ember.Component.extend({
       },
 
       onKeyUp(text, cp) {
-        const matches = /(?:^|[^a-z])(:(?!:).?[\w-]*:?(?!:)(?:t\d?)?:?) ?$/gi.exec(
-          text.substring(0, cp)
-        );
+        // Regular expressions used to extract emoji name from text.
+        // The space version requires a ' ' (space) before the emoji name
+        // (i.e. ' :smile'), while the other one does not and is used
+        // when enable_inline_emoji_translation is true.
+        const noSpaceColonEmoji = /(:(?!:).?[\w-]*:?(?!:)(?:t\d?)?:?) ?$/gi;
+        const spaceColonEmoji = /(?:^|[^a-z])(:(?!:).?[\w-]*:?(?!:)(?:t\d?)?:?) ?$/gi;
 
+        const regex = self.siteSettings.enable_inline_emoji_translation
+          ? noSpaceColonEmoji
+          : spaceColonEmoji;
+        const matches = regex.exec(text.substring(0, cp));
         if (matches && matches[1]) {
           return [matches[1]];
         }

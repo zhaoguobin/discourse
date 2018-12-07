@@ -190,6 +190,7 @@ en:
     error: "There was an error uploading that file. Please try again later."
 
   topic_invite:
+    failed_to_invite: "The user cannot be invited into this topic without a group membership in either one of the following groups: %{group_names}." 
     user_exists: "Sorry, that user has already been invited. You may only invite a user to a topic once."
 
   backup:
@@ -221,8 +222,8 @@ en:
     other: "We're sorry, but new users are temporarily limited to %{count} replies in the same topic."
 
   max_consecutive_replies:
-    one: "No more than 1 reply is allowed. Please edit your previous reply instead, or wait for someone to reply to you."
-    other: "No more than %{count} consecutive replies are allowed. Please edit your previous reply instead, or wait for someone to reply to you."
+    one: "No consecutive replies are allowed. Please edit your previous reply, or wait for someone to reply to you."
+    other: "No more than %{count} consecutive replies are allowed. Please edit your previous reply, or wait for someone to reply to you."
 
   embed:
     start_discussion: "Start Discussion"
@@ -274,6 +275,7 @@ en:
   not_accepting_pms: "Sorry, %{username} is not accepting messages at the moment."
   max_pm_recepients: "Sorry, you can send a message to maximum %{recipients_limit} recipients."
   pm_reached_recipients_limit: "Sorry, you can't have more than %{recipients_limit} recipients in a message."
+  removed_direct_reply_full_quotes: "Automatically removed quote of whole previous post."
 
   just_posted_that: "is too similar to what you recently posted"
   invalid_characters: "contains invalid characters"
@@ -1779,6 +1781,7 @@ en:
     enable_emoji_shortcuts: "Common smiley text such as :) :p :( will be converted to emojis"
     emoji_set: "How would you like your emoji?"
     emoji_autocomplete_min_chars: "Minimum number of characters required to trigger autocomplete emoji popup"
+    enable_inline_emoji_translation: "Enables translation for inline emojis (without any space or punctuation before)"
 
     approve_post_count: "The amount of posts from a new or basic user that must be approved"
     approve_unless_trust_level: "Posts for users below this trust level must be approved"
@@ -4047,10 +4050,10 @@ en:
 
       introduction:
         title: "Introduction"
-        disabled: "<p>We couldn’t find any topic with the title “Welcome to Discourse”.</p>
+        disabled: "<p>We couldn’t find any topic with the title “%{topic_title}”.</p>
           <ul>
           <li>If you have changed the title, edit that topic to modify your site’s introductory text.</li>
-          <li>If you have deleted this topic, create another topic with “Welcome to Discourse” as the title. The content of the first post is your site’s introductory text.</li>
+          <li>If you have deleted this topic, create another topic with “%{topic_title}” as the title. The content of the first post is your site’s introductory text.</li>
           </ul>"
 
         fields:

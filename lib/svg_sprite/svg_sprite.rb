@@ -5,6 +5,7 @@ require_dependency 'distributed_cache'
 module SvgSprite
   SVG_ICONS ||= Set.new([
     "adjust",
+    "ambulance",
     "anchor",
     "angle-double-down",
     "angle-double-up",
@@ -50,6 +51,8 @@ module SvgSprite
     "crosshairs",
     "cube",
     "desktop",
+    "discourse-compress",
+    "discourse-expand",
     "download",
     "ellipsis-h",
     "ellipsis-v",
@@ -59,7 +62,6 @@ module SvgSprite
     "exclamation-circle",
     "exclamation-triangle",
     "external-link-alt",
-    "expand",
     "fab-apple",
     "fab-discourse",
     "fab-facebook-f",
@@ -131,6 +133,7 @@ module SvgSprite
     "paint-brush",
     "paper-plane",
     "pencil-alt",
+    "play",
     "plug",
     "plus",
     "plus-circle",
@@ -223,7 +226,7 @@ Discourse SVG subset of #{fa_license}
 <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
 """.dup
 
-    Dir["#{Rails.root}/vendor/assets/svg-icons/fontawesome/*.svg"].each do |fname|
+    Dir["#{Rails.root}/vendor/assets/svg-icons/**/*.svg"].each do |fname|
       svg_file = Nokogiri::XML(File.open(fname)) do |config|
         config.options = Nokogiri::XML::ParseOptions::NOBLANKS
       end
@@ -247,7 +250,7 @@ Discourse SVG subset of #{fa_license}
   def self.search(searched_icon)
     searched_icon = process(searched_icon.dup)
 
-    Dir["#{Rails.root}/vendor/assets/svg-icons/fontawesome/*.svg"].each do |fname|
+    Dir["#{Rails.root}/vendor/assets/svg-icons/**/*.svg"].each do |fname|
       svg_file = Nokogiri::XML(File.open(fname))
       svg_filename = "#{File.basename(fname, ".svg")}"
 

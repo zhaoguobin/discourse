@@ -3,7 +3,9 @@ require 'rails_helper'
 describe Auth::ManagedAuthenticator do
   let(:authenticator) {
     Class.new(described_class) do
-      def name; "myauth" end
+      def name
+        "myauth"
+      end
     end.new
   }
 
@@ -55,8 +57,12 @@ describe Auth::ManagedAuthenticator do
 
       it 'does not work when disabled' do
         authenticator = Class.new(described_class) do
-          def name; "myauth" end
-          def can_connect_existing_user?; false end
+          def name
+            "myauth"
+          end
+          def can_connect_existing_user?
+            false
+          end
         end.new
         result = authenticator.after_authenticate(hash, existing_account: user2)
         expect(result.user.id).to eq(user1.id)
@@ -81,8 +87,12 @@ describe Auth::ManagedAuthenticator do
 
       it 'does not match if match_by_email is false' do
         authenticator = Class.new(described_class) do
-          def name; "myauth" end
-          def match_by_email; false end
+          def name
+            "myauth"
+          end
+          def match_by_email
+            false
+          end
         end.new
         user = Fabricate(:user, email: "awesome@example.com")
         result = authenticator.after_authenticate(hash)
@@ -102,6 +112,40 @@ describe Auth::ManagedAuthenticator do
         user = Fabricate(:user, email: "awesome@example.com")
         result = authenticator.after_authenticate(hash)
         expect(result.user.id).to eq(user.id)
+      end
+    end
+
+    describe "avatar on update" do
+      let(:user) { Fabricate(:user) }
+      let!(:associated) { UserAssociatedAccount.create!(user: user, provider_name: 'myauth', provider_uid: "1234") }
+
+      it "schedules the job upon update correctly" do
+        # No image supplied, do not schedule
+        expect { result = authenticator.after_authenticate(hash) }
+          .to change { Jobs::DownloadAvatarFromUrl.jobs.count }.by(0)
+
+        # Image supplied, schedule
+        expect { result = authenticator.after_authenticate(hash.deep_merge(info: { image: "https://some.domain/image.jpg" })) }
+          .to change { Jobs::DownloadAvatarFromUrl.jobs.count }.by(1)
+
+        # User already has profile picture, don't schedule
+        user.user_avatar = Fabricate(:user_avatar, custom_upload: Fabricate(:upload))
+        user.save!
+        expect { result = authenticator.after_authenticate(hash.deep_merge(info: { image: "https://some.domain/image.jpg" })) }
+          .to change { Jobs::DownloadAvatarFromUrl.jobs.count }.by(0)
+      end
+    end
+
+    describe "avatar on create" do
+      let(:user) { Fabricate(:user) }
+      it "doesn't schedule with no image" do
+        expect { result = authenticator.after_create_account(user, extra_data: hash) }
+          .to change { Jobs::DownloadAvatarFromUrl.jobs.count }.by(0)
+      end
+
+      it "schedules with image" do
+        expect { result = authenticator.after_create_account(user, extra_data: hash.deep_merge(info: { image: "https://some.domain/image.jpg" })) }
+          .to change { Jobs::DownloadAvatarFromUrl.jobs.count }.by(1)
       end
     end
   end
