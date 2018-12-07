@@ -55,6 +55,11 @@ bootsnap-compile-cache/
 !/plugins/discourse-local-dates
 /plugins/*/auto_generated/
 
+# custom plugin
+!/plugins/discourse-math/
+!/plugins/discourse-graphviz/
+!/plugins/discourse-checklist/
+
 /spec/fixtures/plugins/my_plugin/auto_generated
 
 # Ignore Eclipse .project file

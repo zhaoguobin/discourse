@@ -1,0 +1,9 @@
+[submodule "plugins/discourse-math"]
+	path = plugins/discourse-math
+	url = https://github.com/discourse/discourse-math.git
+[submodule "plugins/discourse-graphviz"]
+	path = plugins/discourse-graphviz
+	url = https://github.com/discourse/discourse-graphviz.git
+[submodule "plugins/discourse-checklist"]
+	path = plugins/discourse-checklist
+	url = https://github.com/discourse/discourse-checklist.git
