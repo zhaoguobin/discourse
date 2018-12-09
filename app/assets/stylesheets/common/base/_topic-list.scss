@@ -133,6 +133,10 @@
 
   .link-bottom-line {
     font-size: $font-down-1;
+    a.badge-wrapper.box {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   .topic-featured-link {
@@ -155,13 +159,6 @@
   }
   .topic-statuses:empty {
     display: none;
-  }
-  .topic-status {
-    margin-right: 4px;
-    padding: 0;
-    &:last-of-type {
-      margin-right: 0;
-    }
   }
 
   .num {

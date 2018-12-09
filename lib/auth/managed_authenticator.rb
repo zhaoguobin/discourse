@@ -55,7 +55,7 @@ class Auth::ManagedAuthenticator < Auth::Authenticator
     end
 
     # Matching an account by email
-    if match_by_email && association.nil? && (user = User.find_by_email(email))
+    if match_by_email && association.nil? && result.user.nil? && (user = User.find_by_email(email))
       UserAssociatedAccount.where(user: user, provider_name: auth_token[:provider]).destroy_all # Destroy existing associations for the new user
       result.user = user
     end
@@ -73,6 +73,7 @@ class Auth::ManagedAuthenticator < Auth::Authenticator
         extra: auth_token[:extra] || {}
       )
       retrieve_avatar(result.user, auth_token.dig(:info, :image))
+      retrieve_profile(result.user, auth_token[:info])
     end
 
     result.email_valid = true if result.email
@@ -95,11 +96,26 @@ class Auth::ManagedAuthenticator < Auth::Authenticator
     data = auth[:extra_data]
     create_association!(data.merge(user: user))
     retrieve_avatar(user, data.dig(:info, :image))
+    retrieve_profile(user, data[:info])
   end
 
   def retrieve_avatar(user, url)
     return unless user && url
     return if user.user_avatar.try(:custom_upload_id).present?
     Jobs.enqueue(:download_avatar_from_url, url: url, user_id: user.id, override_gravatar: false)
+  end
+
+  def retrieve_profile(user, info)
+    return unless user
+
+    bio = info[:description]
+    location = info[:location]
+
+    if bio || location
+      profile = user.user_profile
+      profile.bio_raw  = bio      unless profile.bio_raw.present?
+      profile.location = location unless profile.location.present?
+      profile.save
+    end
   end
 end
