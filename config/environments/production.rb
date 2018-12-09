@@ -1,3 +1,5 @@
+require 'uglifier'
+
 Discourse::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -12,7 +14,7 @@ Discourse::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.public_file_server.enabled = GlobalSetting.serve_static_assets || false
 
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
 
   # stuff should be pre-compiled
   config.assets.compile = false
