@@ -61,11 +61,17 @@ const TopicRoute = Discourse.Route.extend({
 
     showTopicStatusUpdate() {
       const model = this.modelFor("topic");
-      model.set("topic_timer", Ember.Object.create(model.get("topic_timer")));
-      model.set(
-        "private_topic_timer",
-        Ember.Object.create(model.get("private_topic_timer"))
-      );
+
+      const topicTimer = model.get("topic_timer");
+      if (!topicTimer) {
+        model.set("topic_timer", {});
+      }
+
+      const privateTopicTimer = model.get("private_topic_timer");
+      if (!privateTopicTimer) {
+        model.set("private_topic_timer", {});
+      }
+
       showModal("edit-topic-timer", { model });
       this.controllerFor("modal").set("modalClass", "edit-topic-timer-modal");
     },
@@ -114,15 +120,11 @@ const TopicRoute = Discourse.Route.extend({
       this.controllerFor("raw_email").loadRawEmail(model.get("id"));
     },
 
-    mergeTopic() {
-      showModal("merge-topic", {
+    moveToTopic() {
+      showModal("move-to-topic", {
         model: this.modelFor("topic"),
-        title: "topic.merge_topic.title"
+        title: "topic.move_to.title"
       });
-    },
-
-    splitTopic() {
-      showModal("split-topic", { model: this.modelFor("topic") });
     },
 
     changeOwner() {

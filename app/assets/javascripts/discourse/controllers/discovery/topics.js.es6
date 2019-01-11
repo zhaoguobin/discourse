@@ -43,7 +43,7 @@ const controllerOpts = {
       const tracker = this.topicTrackingState;
 
       // Move inserted into topics
-      this.get("content").loadBefore(tracker.get("newIncoming"), true);
+      this.get("model").loadBefore(tracker.get("newIncoming"), true);
       tracker.resetTracking();
       return false;
     },
@@ -111,7 +111,7 @@ const controllerOpts = {
     return (
       (this.isFilterPage(this.get("model.filter"), "new") ||
         this.isFilterPage(this.get("model.filter"), "unread")) &&
-      this.get("model.topics.length") >= 30
+      this.get("model.topics.length") >= 15
     );
   }.property("model.filter", "model.topics.length"),
 

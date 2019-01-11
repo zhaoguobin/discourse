@@ -62,6 +62,12 @@ function loadDraft(store, opts) {
 
 const _popupMenuOptionsCallbacks = [];
 
+let _checkDraftPopup = !Ember.testing;
+
+export function toggleCheckDraftPopup(enabled) {
+  _checkDraftPopup = enabled;
+}
+
 export function clearPopupMenuOptionsCallback() {
   _popupMenuOptionsCallbacks.length = 0;
 }
@@ -292,6 +298,40 @@ export default Ember.Controller.extend({
   uploadIcon: () => uploadIcon(),
 
   actions: {
+    togglePreview() {
+      this.toggleProperty("showPreview");
+    },
+
+    closeComposer() {
+      this.close();
+    },
+
+    openComposer(options, post, topic) {
+      this.open(options).then(() => {
+        let url;
+        if (post) url = post.get("url");
+        if (!post && topic) url = topic.get("url");
+
+        let topicTitle;
+        if (topic) topicTitle = topic.get("title");
+
+        if (!url || !topicTitle) return;
+
+        url = `${location.protocol}//${location.host}${url}`;
+        const link = `[${Handlebars.escapeExpression(topicTitle)}](${url})`;
+        const continueDiscussion = I18n.t("post.continue_discussion", {
+          postLink: link
+        });
+
+        const reply = this.get("model.reply");
+        if (!reply || !reply.includes(continueDiscussion)) {
+          this.get("model").prependText(continueDiscussion, {
+            new_line: true
+          });
+        }
+      });
+    },
+
     cancelUpload() {
       this.set("model.uploadCancelled", true);
     },
@@ -302,10 +342,6 @@ export default Ember.Controller.extend({
 
     storeToolbarState(toolbarEvent) {
       this.set("toolbarEvent", toolbarEvent);
-    },
-
-    togglePreview() {
-      this.toggleProperty("showPreview");
     },
 
     typed() {
@@ -718,15 +754,10 @@ export default Ember.Controller.extend({
       scopedCategoryId: null
     });
 
-    // If we show the subcategory list, scope the categories drop down to
-    // the category we opened the composer with.
+    // Scope the categories drop down to the category we opened the composer with.
     if (opts.categoryId && opts.draftKey !== "reply_as_new_topic") {
       const category = this.site.categories.findBy("id", opts.categoryId);
-      if (
-        category &&
-        (category.get("show_subcategory_list") ||
-          category.get("parentCategory.show_subcategory_list"))
-      ) {
+      if (category) {
         this.set("scopedCategoryId", opts.categoryId);
       }
     }
@@ -770,21 +801,35 @@ export default Ember.Controller.extend({
           .then(resolve, reject);
       }
 
-      // we need a draft sequence for the composer to work
-      if (opts.draftSequence === undefined) {
-        return Draft.get(opts.draftKey)
-          .then(function(data) {
-            opts.draftSequence = data.draft_sequence;
-            opts.draft = data.draft;
-            self._setModel(composerModel, opts);
-          })
-          .then(resolve, reject);
-      }
-
       if (composerModel) {
         if (composerModel.get("action") !== opts.action) {
           composerModel.setProperties({ unlistTopic: false, whisper: false });
         }
+      }
+
+      // check if there is another draft saved on server
+      // or get a draft sequence number
+      if (!opts.draft || opts.draftSequence === undefined) {
+        return Draft.get(opts.draftKey)
+          .then(data => {
+            if (opts.skipDraftCheck) {
+              data.draft = undefined;
+              return data;
+            }
+
+            return self.confirmDraftAbandon(data);
+          })
+          .then(data => {
+            opts.draft = opts.draft || data.draft;
+
+            // we need a draft sequence for the composer to work
+            if (opts.draft_sequence === undefined) {
+              opts.draftSequence = data.draft_sequence;
+            }
+
+            self._setModel(composerModel, opts);
+          })
+          .then(resolve, reject);
       }
 
       self._setModel(composerModel, opts);
@@ -862,6 +907,41 @@ export default Ember.Controller.extend({
       Draft.clear(key, this.get("model.draftSequence")).then(() => {
         this.appEvents.trigger("draft:destroyed", key);
       });
+    }
+  },
+
+  confirmDraftAbandon(data) {
+    if (!data.draft) {
+      return data;
+    }
+
+    // do not show abandon dialog if old draft is clean
+    const draft = JSON.parse(data.draft);
+    if (draft.reply === draft.originalText) {
+      data.draft = null;
+      return data;
+    }
+
+    if (_checkDraftPopup) {
+      return new Ember.RSVP.Promise(resolve => {
+        bootbox.dialog(I18n.t("drafts.abandon.confirm"), [
+          {
+            label: I18n.t("drafts.abandon.no_value"),
+            callback: () => resolve(data)
+          },
+          {
+            label: I18n.t("drafts.abandon.yes_value"),
+            class: "btn-danger",
+            callback: () => {
+              data.draft = null;
+              resolve(data);
+            }
+          }
+        ]);
+      });
+    } else {
+      data.draft = null;
+      return data;
     }
   },
 

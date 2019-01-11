@@ -633,7 +633,8 @@ const User = RestModel.extend({
   },
 
   summary() {
-    let { store } = this;
+    // let { store } = this; would fail in tests
+    const store = Discourse.__container__.lookup("service:store");
 
     return ajax(userPath(`${this.get("username_lower")}/summary.json`)).then(
       json => {
@@ -686,7 +687,7 @@ const User = RestModel.extend({
       : this.get("admin") || group.get("is_group_owner");
   },
 
-  @computed("groups.@each.title", "badges.@each")
+  @computed("groups.@each.title", "badges.[]")
   availableTitles() {
     let titles = [];
 
@@ -716,6 +717,16 @@ User.reopenClass(Singleton, {
   // TODO: Use app.register and junk Singleton
   createCurrent() {
     const userJson = PreloadStore.get("currentUser");
+
+    if (userJson && userJson.primary_group_id) {
+      const primaryGroup = userJson.groups.find(
+        group => group.id === userJson.primary_group_id
+      );
+      if (primaryGroup) {
+        userJson.primary_group_name = primaryGroup.name;
+      }
+    }
+
     if (userJson) {
       const store = Discourse.__container__.lookup("service:store");
       return store.createRecord("user", userJson);
